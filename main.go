@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"os"
+	"github.com/ILabiak/4lab-kpi/engine"
 )
 
 func main() {
@@ -14,9 +15,11 @@ func main() {
 		scanner := bufio.NewScanner(input)
 		for scanner.Scan() {
 			commandLine := scanner.Text()
-			Parse(commandLine)
+			//cmd := engine.Parse(commandLine)
+			engine.Parse(commandLine)
 			//eventLoop.Post(cmd)
 		}
 	}
+
 	//eventLoop.AwaitFinish()
 }
