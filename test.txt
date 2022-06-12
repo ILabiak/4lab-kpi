@@ -1,0 +1,2 @@
+print smth
+delete hello l
