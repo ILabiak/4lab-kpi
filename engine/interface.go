@@ -26,11 +26,17 @@ func (p *printCommand) Execute(loop Handler) {
 }
 
 type deleteCommand struct {
-	str string
+	str    string
 	symbol string
 }
 
 func (del *deleteCommand) Execute(loop Handler) {
 	res := strings.ReplaceAll(del.str, del.symbol, "")
 	loop.Post(&printCommand{arg: res})
+}
+
+type stopCommand struct{}
+
+func (sc stopCommand) Execute(h Handler) {
+	h.(*EventLoop).stop = true
 }
