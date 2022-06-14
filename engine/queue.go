@@ -13,7 +13,7 @@ func (cq *Queue) pull() Command {
 	cq.me.Lock()
 	defer cq.me.Unlock()
 
-	if len(cq.commands) == 0 {
+	if cq.empty() {
 		cq.emptyFlag = true
 		cq.me.Unlock()
 
@@ -33,12 +33,13 @@ func (cq *Queue) push(c Command) {
 	cq.commands = append(cq.commands, c)
 
 	if cq.emptyFlag {
+		cq.emptyFlag = false
 		cq.notEmptySignal <- struct{}{}
 	}
 }
 
 func (cq *Queue) empty() bool {
-	cq.me.Lock()
-	defer cq.me.Unlock()
+	//cq.me.Lock()
+	//defer cq.me.Unlock()
 	return len(cq.commands) == 0
 }

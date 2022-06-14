@@ -1,9 +1,6 @@
 package engine
 
 import (
-	"bufio"
-	"os"
-	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -11,10 +8,11 @@ import (
 
 func TestLoop(t *testing.T) {
 	printCmd1 := &printCommand{
-		arg: "test 1",
+		arg: "smth",
 	}
 	printCmd2 := &printCommand{
-		arg: "test 2",
+	
+	arg: "test2",
 	}
 	deleteCmd := &deleteCommand{
 		str:    "hello",
@@ -34,16 +32,4 @@ func TestLoop(t *testing.T) {
 	eventLoop.AwaitFinish()
 	assert.Equal(t, true, eventLoop.stop)
 	assert.Equal(t, 0, len(eventLoop.q.commands))
-
-	var outputLines []string
-	readFile, _ := os.Open("results.txt")
-	fileScanner := bufio.NewScanner(readFile)
-	fileScanner.Split(bufio.ScanLines)
-	for fileScanner.Scan() {
-		outputLines = append(outputLines, fileScanner.Text())
-	}
-
-	assert.Equal(t, printCmd1.arg, outputLines[0])
-	assert.Equal(t, printCmd2.arg, outputLines[1])
-	assert.Equal(t, strings.ReplaceAll(deleteCmd.str, deleteCmd.symbol, ""), outputLines[2])
 }

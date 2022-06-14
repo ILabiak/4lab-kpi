@@ -26,7 +26,7 @@ func (l *EventLoop) Post(cmd Command) {
 }
 
 func (l *EventLoop) AwaitFinish() {
-	l.Post(stopCommand{})
-	l.stop = true
+	l.Post(&stopCommand{})
+	//l.stop = true
 	<-l.stopSignal
 }
