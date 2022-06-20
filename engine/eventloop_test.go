@@ -11,8 +11,8 @@ func TestLoop(t *testing.T) {
 		arg: "smth",
 	}
 	printCmd2 := &printCommand{
-	
-	arg: "test2",
+
+		arg: "test2",
 	}
 	deleteCmd := &deleteCommand{
 		str:    "hello",
@@ -35,23 +35,29 @@ func TestLoop(t *testing.T) {
 }
 
 func TestParser(t *testing.T) {
-    var commandStr string;
-    commandStr = "print hello"
-    cmd := Parse(commandStr)
-    assert.Equal(t, &printCommand{"hello"}, cmd)
-    commandStr = "print"
-    cmd = Parse(commandStr)
-    assert.Equal(t, &printCommand{"Error: not enough arguments"}, cmd)
-    commandStr = "wrongcommand hello"
-    cmd = Parse(commandStr)
-    assert.Equal(t, &printCommand{"err"}, cmd)
-    commandStr = "delete hello l"
-    cmd = Parse(commandStr)
-    assert.Equal(t, &deleteCommand{str:"hello", symbol:"l"}, cmd)
-    commandStr = "delete hello"
-    cmd = Parse(commandStr)
-    assert.Equal(t, &printCommand{"Error: not enough arguments for delete function"}, cmd)
-    commandStr = "delete"
-    cmd = Parse(commandStr)
-    assert.Equal(t, &printCommand{"Error: not enough arguments"}, cmd)
+	var commandStr string
+
+	commandStr = "print hello"
+	cmd := Parse(commandStr)
+	assert.Equal(t, &printCommand{"hello"}, cmd)
+
+	commandStr = "print"
+	cmd = Parse(commandStr)
+	assert.Equal(t, &printCommand{"Error: not enough arguments"}, cmd)
+
+	commandStr = "wrongcommand hello"
+	cmd = Parse(commandStr)
+	assert.Equal(t, &printCommand{"err"}, cmd)
+
+	commandStr = "delete hello l"
+	cmd = Parse(commandStr)
+	assert.Equal(t, &deleteCommand{str: "hello", symbol: "l"}, cmd)
+
+	commandStr = "delete hello"
+	cmd = Parse(commandStr)
+	assert.Equal(t, &printCommand{"Error: not enough arguments for delete function"}, cmd)
+
+	commandStr = "delete"
+	cmd = Parse(commandStr)
+	assert.Equal(t, &printCommand{"Error: not enough arguments"}, cmd)
 }
