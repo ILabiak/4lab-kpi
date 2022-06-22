@@ -24,16 +24,15 @@ func (l *EventLoop) Start() {
 }
 
 func (l *EventLoop) Post(cmd Command) error {
-	if l.stop != true {
-		l.q.push(cmd)
-	} else {
-		return errors.New("Queue is closed")
+	if l.stop {
+		return errors.New("EventLoop is already stopped")
 	}
+	l.q.push(cmd)
 	return nil
 }
 
 func (l *EventLoop) AwaitFinish() {
 	l.Post(&stopCommand{})
-	//l.stop = true
 	<-l.stopSignal
+
 }
