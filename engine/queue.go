@@ -13,7 +13,7 @@ func (cq *Queue) pull() Command {
 	cq.me.Lock()
 	defer cq.me.Unlock()
 
-	if cq.empty() {
+	if len(cq.commands) == 0 {
 		cq.emptyFlag = true
 		cq.me.Unlock()
 
@@ -39,7 +39,7 @@ func (cq *Queue) push(c Command) {
 }
 
 func (cq *Queue) empty() bool {
-	//cq.me.Lock()
-	//defer cq.me.Unlock()
+	cq.me.Lock()
+	defer cq.me.Unlock()
 	return len(cq.commands) == 0
 }
