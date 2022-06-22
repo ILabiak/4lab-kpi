@@ -1,2 +1,3 @@
-print smth
+print 123
+print test2
 delete hello l

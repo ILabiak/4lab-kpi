@@ -33,7 +33,7 @@ func (l *EventLoop) Post(cmd Command) error {
 }
 
 func (l *EventLoop) AwaitFinish() {
-	l.Post(stopCommand{})
-	l.stop = true
+	l.Post(&stopCommand{})
+	//l.stop = true
 	<-l.stopSignal
 }
