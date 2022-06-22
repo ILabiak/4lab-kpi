@@ -24,14 +24,20 @@ func TestLoop(t *testing.T) {
 	assert.Equal(t, false, eventLoop.stop)
 	assert.Equal(t, 0, len(eventLoop.q.commands))
 
-	eventLoop.Post(deleteCmd)
-	eventLoop.Post(printCmd1)
-	eventLoop.Post(printCmd2)
+	err := eventLoop.Post(deleteCmd)
+	assert.Equal(t, nil, err)
+	err = eventLoop.Post(printCmd1)
+	assert.Equal(t, nil, err)
+	err = eventLoop.Post(printCmd2)
+	assert.Equal(t, nil, err)
 
 	assert.Equal(t, 3, len(eventLoop.q.commands))
 	eventLoop.AwaitFinish()
 	assert.Equal(t, true, eventLoop.stop)
 	assert.Equal(t, 0, len(eventLoop.q.commands))
+
+	err = eventLoop.Post(printCmd2)
+	assert.Error(t, err)
 }
 
 func TestParser(t *testing.T) {
