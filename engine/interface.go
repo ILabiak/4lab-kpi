@@ -14,7 +14,7 @@ type Command interface {
 // Handler allows to send commands to an event loop
 // it’s associated with.
 type Handler interface {
-	Post(cmd Command)
+	Post(cmd Command) error
 }
 
 type printCommand struct {

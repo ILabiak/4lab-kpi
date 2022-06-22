@@ -1,5 +1,7 @@
 package engine
 
+import "errors"
+
 type EventLoop struct {
 	q *Queue
 
@@ -21,8 +23,13 @@ func (l *EventLoop) Start() {
 	}()
 }
 
-func (l *EventLoop) Post(cmd Command) {
-	l.q.push(cmd)
+func (l *EventLoop) Post(cmd Command) error {
+	if l.stop != true {
+		l.q.push(cmd)
+	} else {
+		return errors.New("Queue is closed")
+	}
+	return nil
 }
 
 func (l *EventLoop) AwaitFinish() {
