@@ -17,10 +17,11 @@ func main() {
 		for scanner.Scan() {
 			commandLine := scanner.Text()
 			cmd := engine.Parse(commandLine)
-			eventLoop.Post(cmd)
+			err := eventLoop.Post(cmd)
+			if err != nil {
+				panic(err)
+			}
 		}
 	}
-
-
 	eventLoop.AwaitFinish()
 }
