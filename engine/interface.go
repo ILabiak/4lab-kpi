@@ -38,5 +38,7 @@ func (del *deleteCommand) Execute(loop Handler) {
 type stopCommand struct{}
 
 func (sc stopCommand) Execute(h Handler) {
+	h.(*EventLoop).q.me.Lock()
+	defer h.(*EventLoop).q.me.Unlock()
 	h.(*EventLoop).stop = true
 }
